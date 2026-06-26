@@ -51,6 +51,11 @@ def generar_pagina(data, plantilla=None):
             <span>{texto}</span>
         </div>'''
         
+        boton_circular_template = '''
+        <div class="boton rastreo" data-nombre="{texto}" onclick="window.open('{url}', '_blank')" style="display: inline-flex; justify-content: center; align-items: center; width: 65px; height: 65px; border-radius: 50%; background-color: {bg_color}; color: {text_color}; border: {borde_grosor}px solid {borde_color}; margin: 10px 8px; cursor: pointer;">
+            <i class="bi {icono}" style="color: {icon_color}; font-size: 30px; margin: 0; position: static;"></i>
+        </div>'''
+        
         youtube_template = '''
         <div class="video-container" style="margin: 0 auto 15px auto; border-radius: {borde_grosor}px; overflow: hidden; border: {borde_grosor}px solid {borde_color}; width: {ancho_video}%; aspect-ratio: 16/9;">
             <iframe width="100%" height="100%" src="{url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -82,16 +87,29 @@ def generar_pagina(data, plantilla=None):
                 tipo = tipo_original
             
             if tipo == "enlace":
-                bloques_html.append(boton_template.format(
-                    url=b.get("url", "#"),
-                    icono=b.get("icono", "bi-link-45deg"),
-                    texto=b.get("texto", ""),
-                    bg_color=b.get("bg_color", "white"),
-                    text_color=b.get("text_color", "#3aabd4"),
-                    icon_color=b.get("icon_color", "#3aabd4"),
-                    borde_color=b.get("borde_color", "#000000"),
-                    borde_grosor=b.get("borde_grosor", "0")
-                ))
+                forma = b.get("forma", "rectangular")
+                if forma == "circular":
+                    bloques_html.append(boton_circular_template.format(
+                        url=b.get("url", "#"),
+                        icono=b.get("icono", "bi-link-45deg"),
+                        texto=b.get("texto", "Red Social"),
+                        bg_color=b.get("bg_color", "white"),
+                        text_color=b.get("text_color", "#3aabd4"),
+                        icon_color=b.get("icon_color", "#3aabd4"),
+                        borde_color=b.get("borde_color", "#000000"),
+                        borde_grosor=b.get("borde_grosor", "0")
+                    ))
+                else:
+                    bloques_html.append(boton_template.format(
+                        url=b.get("url", "#"),
+                        icono=b.get("icono", "bi-link-45deg"),
+                        texto=b.get("texto", ""),
+                        bg_color=b.get("bg_color", "white"),
+                        text_color=b.get("text_color", "#3aabd4"),
+                        icon_color=b.get("icon_color", "#3aabd4"),
+                        borde_color=b.get("borde_color", "#000000"),
+                        borde_grosor=b.get("borde_grosor", "0")
+                    ))
             elif tipo == "youtube":
                 # Convertir URL normal a URL de embed si es necesario
                 yt_url = b.get("url", "")
