@@ -153,6 +153,8 @@ def generar_pagina(data, plantilla=None):
 
     except Exception as e:
         import traceback
+        with open("error_log.txt", "w") as f:
+            f.write(traceback.format_exc())
         print("Error:", e)
         traceback.print_exc()
         return False
