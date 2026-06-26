@@ -1,0 +1,26 @@
+name: Deploy Backend a Producción
+
+on:
+  push:
+    branches:
+      - main # O master, dependiendo de tu rama principal
+
+jobs:
+  deploy:
+    name: Desplegar en servidor
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Ejecutar despliegue vía SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          # Opcional: si usas contraseña en lugar de llave SSH, cambia 'key:' por 'password: ${{ secrets.SERVER_PASSWORD }}'
+          script: |
+            cd /var/www/multilinks/backend
+            git pull origin main
+            pip install -r requirements.txt
+            # Reiniciamos el servicio de gunicorn para que tome los cambios
+            sudo systemctl restart gunicorn

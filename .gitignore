@@ -1,0 +1,25 @@
+# Ambientes virtuales
+venv/
+env/
+.venv/
+.env/
+
+# Variables de entorno locales
+.env
+
+# Archivos de Python cacheados
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Carpetas de datos y usuarios (No subir a git)
+data/
+usuarios/
+
+# Logs
+*.log
+
+# IDEs
+.vscode/
+.idea/

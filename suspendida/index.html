@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Servicio suspendido</title>
+    <style>
+        body{
+            margin:0;min-height:100vh;display:grid;place-items:center;
+            /* Fondo negro con patrón sutil (rejilla) */
+            background-color:#010101;
+            background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size:20px 20px;
+
+            /* Mantener la tipografía original */
+            font-family:system-ui,sans-serif;
+            color:#fff;
+        }
+        .card{
+            max-width:560px;padding:28px;border-radius:22px;
+            background:rgba(255,255,255,.1);
+            border:1px solid rgba(255,255,255,.25);
+            backdrop-filter:blur(10px);
+        }
+        h1{margin:0 0 8px;font-size:clamp(24px,5vw,34px)}
+        p{opacity:.95;line-height:1.5}
+        .foot{margin-top:12px;font-size:12px;opacity:.9}
+        a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>Servicio temporalmente suspendido</h1>
+    <p>Este multilink no está disponible en este momento. Si eres el titular, por favor regulariza tu plan para reactivarlo.</p>
+    <div class="foot">Powered by <a href="https://www.gibracompany.com/" target="_blank" rel="noreferrer">Gibra Company</a></div>
+</div>
+</body>
+</html>
