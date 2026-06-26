@@ -52,12 +52,17 @@ def generar_pagina(data, plantilla=None):
         </div>'''
         
         youtube_template = '''
-        <div class="video-container" style="margin-bottom: 15px; border-radius: {borde_grosor}px; overflow: hidden; border: {borde_grosor}px solid {borde_color};">
-            <iframe width="100%" height="215" src="{url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-container" style="margin: 0 auto 15px auto; border-radius: {borde_grosor}px; overflow: hidden; border: {borde_grosor}px solid {borde_color}; width: {ancho_video}%; aspect-ratio: 16/9;">
+            <iframe width="100%" height="100%" src="{url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>'''
         
         texto_template = '''
         <div class="texto-bloque" style="margin-bottom: 15px; text-align: {alineacion}; color: {text_color}; font-size: {tamano};">
+            {contenido}
+        </div>'''
+        
+        seccion_template = '''
+        <div class="seccion-bloque" style="margin-bottom: 15px; text-align: left; color: {text_color}; font-size: 18px; font-weight: bold; border-bottom: 2px solid {borde_color}; padding-bottom: 5px;">
             {contenido}
         </div>'''
         
@@ -98,7 +103,8 @@ def generar_pagina(data, plantilla=None):
                 bloques_html.append(youtube_template.format(
                     url=yt_url,
                     borde_color=b.get("borde_color", "transparent"),
-                    borde_grosor=b.get("borde_grosor", "0")
+                    borde_grosor=b.get("borde_grosor", "0"),
+                    ancho_video=b.get("ancho_video", "100")
                 ))
             elif tipo == "texto":
                 bloques_html.append(texto_template.format(
@@ -106,6 +112,12 @@ def generar_pagina(data, plantilla=None):
                     alineacion=b.get("alineacion", "center"),
                     text_color=b.get("text_color", "#000000"),
                     tamano=b.get("tamano", "16px")
+                ))
+            elif tipo == "seccion":
+                bloques_html.append(seccion_template.format(
+                    contenido=b.get("texto", ""),
+                    text_color=b.get("text_color", "#ffffff"),
+                    borde_color=b.get("borde_color", "#ffffff")
                 ))
             elif tipo == "imagen":
                 bloques_html.append(imagen_template.format(
@@ -120,6 +132,9 @@ def generar_pagina(data, plantilla=None):
             data["titulo"] = ""
         if "subtitulo" not in data:
             data["subtitulo"] = ""
+            
+        if data.get("imagen_fondo"):
+            data["fondo"] = f"url('{data['imagen_fondo']}') fixed center / cover"
 
         for clave, valor in data.items():
             if clave != "botones":
