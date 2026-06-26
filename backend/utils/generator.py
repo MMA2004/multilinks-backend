@@ -61,6 +61,11 @@ def generar_pagina(data, plantilla=None):
             <iframe width="100%" height="100%" src="{url}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>'''
         
+        mapa_template = '''
+        <div class="mapa-container" style="margin: 0 auto 15px auto; border-radius: {borde_grosor}px; overflow: hidden; border: {borde_grosor}px solid {borde_color}; width: {ancho}%; height: {alto}px;">
+            <iframe width="100%" height="100%" src="{url}" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>'''
+        
         texto_template = '''
         <div class="texto-bloque" style="margin-bottom: 15px; text-align: {alineacion}; color: {text_color}; font-size: {tamano};">
             {contenido}
@@ -123,6 +128,22 @@ def generar_pagina(data, plantilla=None):
                     borde_color=b.get("borde_color", "transparent"),
                     borde_grosor=b.get("borde_grosor", "0"),
                     ancho_video=b.get("ancho_video", "100")
+                ))
+            elif tipo == "mapa":
+                # Convertir iframe HTML a URL si es necesario
+                map_url = b.get("url", "")
+                if "<iframe" in map_url:
+                    import re
+                    match = re.search(r'src="([^"]+)"', map_url)
+                    if match:
+                        map_url = match.group(1)
+                
+                bloques_html.append(mapa_template.format(
+                    url=map_url,
+                    borde_color=b.get("borde_color", "transparent"),
+                    borde_grosor=b.get("borde_grosor", "0"),
+                    ancho=b.get("ancho_video", "100"),
+                    alto=b.get("alto_mapa", "300")
                 ))
             elif tipo == "texto":
                 bloques_html.append(texto_template.format(
