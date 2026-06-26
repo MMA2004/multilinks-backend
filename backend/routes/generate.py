@@ -16,10 +16,10 @@ def generar():
 
     data = request.json
     url = data.get("url")
-    plantilla = data.get("plantilla")
+    plantilla = data.get("plantilla", "plantilla_comercial")
     links = data.get("botones", [])
 
-    if not url or not plantilla:
+    if not url:
         return jsonify({"error": "Datos incompletos"}), 400
 
     # Ajustar data para enviar a generar_pagina
