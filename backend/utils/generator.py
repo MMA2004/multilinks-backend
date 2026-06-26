@@ -1,9 +1,6 @@
 import os
 import shutil
-
-BASE_DIR = "/var/www/multilinks"
-
-
+from config import TEMPLATES_DIR, USUARIOS_DIR
 def generar_vcard(data, destino):
     nombre = data.get("nombre", "Contacto")
     telefono = data.get("telefono", "")
@@ -29,8 +26,8 @@ def generar_vcard(data, destino):
 
 
 def generar_pagina(data, plantilla="default"):
-    base_path = os.path.join(BASE_DIR, "templates", plantilla)
-    destino = os.path.join(BASE_DIR, "usuarios", data.get("url", "usuario").replace(" ", "-").lower())
+    base_path = os.path.join(TEMPLATES_DIR, plantilla)
+    destino = os.path.join(USUARIOS_DIR, data.get("url", "usuario").replace(" ", "-").lower())
 
     try:
         if not os.path.exists(base_path):

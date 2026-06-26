@@ -2,11 +2,11 @@
 import os
 import re
 from flask import Blueprint, jsonify, request, current_app
+from config import USUARIOS_DIR
 
 suspend_bp = Blueprint("suspend_bp", __name__)
 
-# Carpeta raíz donde guardas los sitios por subdominio
-BASE_DIR = "/var/www/multilinks/usuarios"
+BASE_DIR = USUARIOS_DIR
 
 # Slug seguro: a-z, 0-9 y guiones; 2-63 chars; sin guión al inicio/fin
 SLUG_RE = re.compile(r'^[a-z0-9](?:[a-z0-9-]{1,61}[a-z0-9])?$')

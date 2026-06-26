@@ -2,13 +2,11 @@ from flask import Blueprint, request, jsonify
 import os
 import json
 from datetime import datetime
+from config import DATA_DIR
 
 formularios_bp = Blueprint('formularios', __name__)
 
-BASE_DIR = "/var/www/multilinks/backend"
-DATA_DIR = os.path.join(BASE_DIR, 'data')
 FORMULARIOS_FILE = os.path.join(DATA_DIR, 'respuestas_formularios.json')
-os.makedirs(DATA_DIR, exist_ok=True)
 
 def guardar_respuesta(data):
     try:

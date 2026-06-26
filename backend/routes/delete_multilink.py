@@ -1,13 +1,10 @@
 from flask import Blueprint, request, jsonify
 import os, shutil, re
+from config import USUARIOS_DIR
 
 delete_bp = Blueprint("delete_bp", __name__)
 
-# ⇩⇩⇩ AJUSTA AQUÍ TU RUTA ABSOLUTA ⇩⇩⇩
-BASE_DIR = "/var/www/multilinks/usuarios"
-# Si de verdad las tienes como ruta relativa "multilinks/usuarios" respecto al proyecto,
-# puedes hacer:
-# BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "multilinks", "usuarios"))
+BASE_DIR = USUARIOS_DIR
 
 SLUG_RE = re.compile(r'^[a-z0-9](?:[a-z0-9-]{1,61}[a-z0-9])$')
 

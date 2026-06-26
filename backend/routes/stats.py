@@ -3,12 +3,9 @@ import os
 import json
 import re
 from datetime import datetime
+from config import DATA_DIR
 
 stats_bp = Blueprint('stats', __name__)
-
-BASE_DIR = "/var/www/multilinks/backend"
-DATA_DIR = os.path.join(BASE_DIR, 'data')
-os.makedirs(DATA_DIR, exist_ok=True)
 
 # ----- Helpers de ruta -----
 _slug_re = re.compile(r"[^a-zA-Z0-9._-]")
