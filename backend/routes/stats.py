@@ -7,7 +7,7 @@ from config import DATA_DIR
 
 stats_bp = Blueprint('stats', __name__)
 
-# ------ Helpers de ruta ------
+# ----- Helpers de ruta -----
 _slug_re = re.compile(r"[^a-zA-Z0-9._-]")
 
 def safe_slug(name: str) -> str:
