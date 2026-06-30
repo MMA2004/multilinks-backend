@@ -1,0 +1,114 @@
+/* Estilo general */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+}
+
+/* Envoltorio que ocupa toda la altura y fuerza al footer al fondo */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Contenido principal */
+.container {
+  flex: 1;
+  border-radius: 24px;
+  padding: 30px 20px;
+  text-align: center;
+  max-width: 450px;
+  width: 90%;
+  margin: auto auto; /* Centrar verticalmente */
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.profile-pic {
+  margin: 0 !important;
+  width: 90px !important;
+  height: 90px !important;
+}
+
+.profile-titles {
+  flex: 1;
+}
+
+/* Títulos */
+h2 {
+  color: white;
+  font-size: 22px !important;
+  margin: 0 !important;
+  text-align: left;
+}
+
+h3 {
+  color: white;
+  font-size: 16px !important;
+  font-weight: lighter;
+  margin: 5px 0 0 0 !important;
+  text-align: left;
+}
+
+/* Botones sociales */
+.social-buttons {
+  margin-top: 40px;
+}
+
+.boton {
+  position: relative;
+  display: flex;
+  background-color: white;
+  border-radius: 30px;
+  margin: 20px auto;
+  width: 80%;
+  font-size: 25px;
+  align-items: center;
+  justify-content: center;
+  height: 65px;
+  cursor: pointer;
+}
+
+.boton span {
+}
+
+.boton i {
+  position: absolute;
+  left: 25px;
+  font-size: 30px;
+}
+
+/* Botón guardar contacto */
+button {
+  padding: 10px 20px;
+  font-size: 25px;
+  cursor: pointer;
+  background-color: white;
+  border: none;
+  border-radius: 30px;
+  margin-top: 20px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px;
+  font-weight: bold;
+}
+
+footer a {
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none;
+}

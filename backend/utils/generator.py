@@ -46,13 +46,13 @@ def generar_pagina(data, plantilla=None):
 
         # Templates de bloques
         boton_template = '''
-        <div class="boton rastreo" data-nombre="{texto}" onclick="window.open('{url}', '_blank')" style="background-color: {bg_color}; color: {text_color}; border: {borde_grosor}px solid {borde_color}; margin-bottom: 15px;">
-            <i class="bi {icono}" style="color: {icon_color};"></i>
+        <div class="boton rastreo" data-nombre="{texto}" onclick="window.open('{url}', '_blank')" style="{extra_style} color: {text_color}; margin-bottom: 15px;">
+            {icono_html}
             <span>{texto}</span>
         </div>'''
         
         boton_circular_template = '''
-        <div class="boton rastreo" data-nombre="{texto}" onclick="window.open('{url}', '_blank')" style="display: inline-flex; justify-content: center; align-items: center; width: 65px; height: 65px; border-radius: 50%; background-color: {bg_color}; color: {text_color}; border: {borde_grosor}px solid {borde_color}; margin: 10px 8px; cursor: pointer;">
+        <div class="boton rastreo" data-nombre="{texto}" onclick="window.open('{url}', '_blank')" style="display: inline-flex; justify-content: center; align-items: center; width: 65px; height: 65px; border-radius: 50%; {extra_style} color: {text_color}; margin: 10px 8px; cursor: pointer;">
             <i class="bi {icono}" style="color: {icon_color}; font-size: 30px; margin: 0; position: static;"></i>
         </div>'''
         
@@ -93,27 +93,29 @@ def generar_pagina(data, plantilla=None):
             
             if tipo == "enlace":
                 forma = b.get("forma", "rectangular")
+                is_glass = b.get("glassmorphism", False)
+                if is_glass:
+                    extra_style = f"background-color: color-mix(in srgb, {b.get('bg_color', 'white')} 25%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.4);"
+                else:
+                    extra_style = f"background-color: {b.get('bg_color', 'white')}; border: {b.get('borde_grosor', '0')}px solid {b.get('borde_color', '#000000')};"
+
                 if forma == "circular":
                     bloques_html.append(boton_circular_template.format(
                         url=b.get("url", "#"),
                         icono=b.get("icono", "bi-link-45deg"),
                         texto=b.get("texto", "Red Social"),
-                        bg_color=b.get("bg_color", "white"),
                         text_color=b.get("text_color", "#3aabd4"),
                         icon_color=b.get("icon_color", "#3aabd4"),
-                        borde_color=b.get("borde_color", "#000000"),
-                        borde_grosor=b.get("borde_grosor", "0")
+                        extra_style=extra_style
                     ))
                 else:
+                    icono_html = f'<i class="bi {b.get("icono")}" style="color: {b.get("icon_color", "#3aabd4")};"></i>' if b.get("icono") else ""
                     bloques_html.append(boton_template.format(
+                        texto=b.get("texto", "Botón"),
                         url=b.get("url", "#"),
-                        icono=b.get("icono", "bi-link-45deg"),
-                        texto=b.get("texto", ""),
-                        bg_color=b.get("bg_color", "white"),
+                        icono_html=icono_html,
                         text_color=b.get("text_color", "#3aabd4"),
-                        icon_color=b.get("icon_color", "#3aabd4"),
-                        borde_color=b.get("borde_color", "#000000"),
-                        borde_grosor=b.get("borde_grosor", "0")
+                        extra_style=extra_style
                     ))
             elif tipo == "youtube":
                 # Convertir URL normal a URL de embed si es necesario
@@ -184,9 +186,16 @@ def generar_pagina(data, plantilla=None):
             contacto_color = data.get("contacto_color", "white")
             contacto_borde_grosor = data.get("contacto_borde_grosor", "0")
             contacto_borde_color = data.get("contacto_borde_color", "#000000")
+            contacto_glass = data.get("contacto_glassmorphism", False)
+            
+            if contacto_glass:
+                contacto_style = f"background-color: color-mix(in srgb, {contacto_bg} 25%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.4);"
+            else:
+                contacto_style = f"background-color: {contacto_bg}; border: {contacto_borde_grosor}px solid {contacto_borde_color};"
+                
             boton_contacto_html = (
                 f'<a href="contacto.vcf" download>'
-                f'<button style="background-color: {contacto_bg}; color: {contacto_color}; border: {contacto_borde_grosor}px solid {contacto_borde_color};">'
+                f'<button style="{contacto_style} color: {contacto_color};">'
                 f'Guardar Contacto</button></a>'
             )
             html = html.replace("{{boton_contacto}}", boton_contacto_html)

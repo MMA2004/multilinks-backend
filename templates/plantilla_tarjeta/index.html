@@ -43,9 +43,13 @@
 <body style="background: {{fondo}}; background-size: cover; background-position: center;">
   <div class="page-wrapper">
     <div class="container">
-      <img src="{{imagen}}" alt="Foto de perfil" class="profile-pic" />
-      <h2 style="color: {{color_titulo}}; font-size: {{tamano_titulo}}; margin-bottom: {{mb_titulo}}; margin-top: {{mt_titulo}}">{{titulo}}</h2>
-      <h3 style="color: {{color_subtitulo}}; font-size: {{tamano_subtitulo}}; margin-bottom: {{mb_subtitulo}}; margin-top: {{mt_subtitulo}}">{{subtitulo}}</h3>
+      <div class="profile-header">
+        <img src="{{imagen}}" alt="Foto de perfil" class="profile-pic" />
+        <div class="profile-titles">
+          <h2 style="color: {{color_titulo}}; font-size: {{tamano_titulo}}; margin-bottom: {{mb_titulo}}; margin-top: {{mt_titulo}}">{{titulo}}</h2>
+          <h3 style="color: {{color_subtitulo}}; font-size: {{tamano_subtitulo}}; margin-bottom: {{mb_subtitulo}}; margin-top: {{mt_subtitulo}}">{{subtitulo}}</h3>
+        </div>
+      </div>
 
       <div class="social-buttons">
         {{botones}}
