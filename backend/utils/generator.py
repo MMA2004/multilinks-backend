@@ -28,12 +28,20 @@ def generar_vcard(data, destino):
 def generar_pagina(data, plantilla=None):
     if plantilla is None:
         plantilla = data.get("plantilla", "plantilla_comercial")
+        
     base_path = os.path.join(TEMPLATES_DIR, plantilla)
+    
+    # Si la plantilla no existe (porque fue eliminada o renombrada), forzar plantilla_comercial
+    if not os.path.exists(base_path):
+        print(f"Advertencia: La plantilla '{plantilla}' no existe. Usando 'plantilla_comercial' por defecto.")
+        plantilla = "plantilla_comercial"
+        base_path = os.path.join(TEMPLATES_DIR, plantilla)
+
     destino = os.path.join(USUARIOS_DIR, data.get("url", "usuario").replace(" ", "-").lower())
 
     try:
         if not os.path.exists(base_path):
-            print(f"Error: La plantilla '{plantilla}' no existe en: {base_path}")
+            print(f"Error Crítico: Ni siquiera la plantilla por defecto '{plantilla}' existe en: {base_path}")
             return False
 
         if os.path.exists(destino):
