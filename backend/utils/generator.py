@@ -215,6 +215,10 @@ def generar_pagina(data, plantilla=None):
 
         html = html.replace("{{botones}}", botones_html)
 
+        # Prevenir caché en el CSS
+        import time
+        html = html.replace('href="styles.css"', f'href="styles.css?v={int(time.time())}"')
+
         with open(index_path, "w", encoding="utf-8") as file:
             file.write(html)
 
