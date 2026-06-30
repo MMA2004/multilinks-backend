@@ -78,8 +78,36 @@ h3 {
   font-size: 34px;
 }
 
+/* Contenedor extra debajo de la grilla */
 .mapa-container, .video-container {
-    grid-column: 1 / -1;
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+/* === Botón Imagen + Texto === */
+.boton-imagen-texto {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  margin: 20px auto;
+  width: 100%; /* Mosaico usa 100% en grilla, o lo sobreescribe */
+  overflow: hidden;
+  cursor: pointer;
+  background-color: white;
+  grid-column: 1 / -1; /* Ocupa las dos columnas */
+}
+.boton-imagen-texto-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.boton-imagen-texto-contenido {
+  padding: 15px 20px;
+  font-size: 20px;
+  text-align: center;
+  font-weight: 500;
 }
 
 /* Botón guardar contacto */

@@ -80,6 +80,17 @@ def estadisticas_subdominio(subdominio):
         clicks_por_boton_rows = conn.execute(query_group, params_group).fetchall()
         clicks_por_boton = {row['boton']: row['cantidad'] for row in clicks_por_boton_rows}
         
+        # Referrers (Fuentes de Tráfico)
+        query_ref = 'SELECT referrer, COUNT(*) as cantidad FROM visitas WHERE subdominio = ?'
+        params_ref = [subdominio]
+        if mes:
+            query_ref += ' AND fecha LIKE ?'
+            params_ref.append(f'{mes}%')
+        query_ref += ' GROUP BY referrer ORDER BY cantidad DESC'
+        
+        visitas_por_referrer_rows = conn.execute(query_ref, params_ref).fetchall()
+        visitas_por_referrer = { (row['referrer'] if row['referrer'] else 'Directo'): row['cantidad'] for row in visitas_por_referrer_rows }
+        
         # Últimos registros
         ultimas_visitas = [dict(row) for row in conn.execute(
             'SELECT * FROM visitas WHERE subdominio = ? ORDER BY id DESC LIMIT 10', (subdominio,)
@@ -96,6 +107,7 @@ def estadisticas_subdominio(subdominio):
             "visitas_totales": visitas_totales,
             "clicks_totales": clicks_totales,
             "clicks_por_boton": clicks_por_boton,
+            "visitas_por_referrer": visitas_por_referrer,
             "ultimas_visitas": ultimas_visitas,
             "ultimos_clicks": ultimos_clicks
         }), 200

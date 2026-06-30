@@ -89,6 +89,12 @@ def generar_pagina(data, plantilla=None):
             <img src="{url}" alt="Imagen extra" style="max-width: 100%; border-radius: {borde_grosor}px; border: {borde_grosor}px solid {borde_color};">
         </div>'''
 
+        boton_imagen_texto_template = '''
+        <div class="boton-imagen-texto rastreo" data-nombre="{texto}" onclick="window.open('{url}', '_blank')" style="{extra_style} color: {text_color};">
+            <img src="{imagen_url}" alt="{texto}" class="boton-imagen-texto-img">
+            <div class="boton-imagen-texto-contenido">{texto}</div>
+        </div>'''
+
         bloques_html = []
         for b in data.get("botones", []):
             tipo_original = b.get("tipo", "enlace")
@@ -173,6 +179,20 @@ def generar_pagina(data, plantilla=None):
                     url=b.get("url", ""),
                     borde_color=b.get("borde_color", "transparent"),
                     borde_grosor=b.get("borde_grosor", "0")
+                ))
+            elif tipo == "boton_imagen_texto":
+                is_glass = b.get("glassmorphism", False)
+                if is_glass:
+                    extra_style = f"background-color: color-mix(in srgb, {b.get('bg_color', 'white')} 25%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.4);"
+                else:
+                    extra_style = f"background-color: {b.get('bg_color', 'white')}; border: {b.get('borde_grosor', '0')}px solid {b.get('borde_color', '#000000')};"
+
+                bloques_html.append(boton_imagen_texto_template.format(
+                    texto=b.get("texto", "Botón Img + Texto"),
+                    url=b.get("url", "#"),
+                    imagen_url=b.get("imagen_url", ""),
+                    text_color=b.get("text_color", "#000000"),
+                    extra_style=extra_style
                 ))
 
         botones_html = "\n".join(bloques_html)

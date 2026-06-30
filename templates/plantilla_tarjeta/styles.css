@@ -22,9 +22,6 @@ body, html {
   max-width: 450px;
   width: 90%;
   margin: auto auto; /* Centrar verticalmente */
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
 
 .profile-header {
