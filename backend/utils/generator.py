@@ -100,7 +100,7 @@ def generar_pagina(data, plantilla=None):
             tipo_original = b.get("tipo", "enlace")
             
             # Mapear los tipos que realmente son botones/enlaces
-            if tipo_original in ["enlace", "normal", "whatsapp", "correo", "ResFormulario", ""]:
+            if tipo_original in ["enlace", "normal", "whatsapp", "correo", "ResFormulario", "ResValoracion", ""]:
                 tipo = "enlace"
             else:
                 tipo = tipo_original
